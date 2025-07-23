@@ -1,4 +1,4 @@
-import 'package:studio93/domain/gemini_response_model_entity.dart';
+import 'package:studio93/domain/task_model.dart';
 
 class FilteredGeminiResponseModel {
   final String time;
@@ -20,7 +20,7 @@ class FilteredGeminiResponseModel {
       description: json["description"] ?? '',
     );
   }
-  GeminiResponseModelEntity toDomain() => GeminiResponseModelEntity(
+  TaskModelEntity toDomain() => TaskModelEntity(
     date: date.isNotEmpty
         ? date
         : DateTime.now().toIso8601String().split("T")[0],

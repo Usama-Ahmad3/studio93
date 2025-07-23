@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:studio93/domain/gemini_response_model_entity.dart';
+import 'package:studio93/domain/task_model.dart';
 
 enum VoiceStatus {
   initial,
@@ -20,8 +20,8 @@ class HomeState extends Equatable {
   final VoiceStatus voiceStatus;
   final GeminiRequestStatus geminiRequestStatus;
   final String requestingString;
-  final GeminiResponseModelEntity geminiResponseModelEntity;
-  final List<GeminiResponseModelEntity> geminiResponseModelEntityList;
+  final TaskModelEntity taskModelEntity;
+  final List<TaskModelEntity> taskModelEntityList;
   final double level;
   final bool isCanSpeechToText;
   final bool isLoading;
@@ -29,10 +29,10 @@ class HomeState extends Equatable {
     this.internetStatus = InternetStatus.hasInternet,
     this.voiceStatus = VoiceStatus.initial,
     this.geminiRequestStatus = GeminiRequestStatus.initial,
-    this.geminiResponseModelEntity = const GeminiResponseModelEntity.empty(),
+    this.taskModelEntity = const TaskModelEntity.empty(),
     this.requestingString = '',
     this.level = 0.0,
-    this.geminiResponseModelEntityList = const [],
+    this.taskModelEntityList = const [],
     this.isCanSpeechToText = false,
     this.isLoading = true,
   });
@@ -41,8 +41,8 @@ class HomeState extends Equatable {
     String? requestingString,
     VoiceStatus? voiceStatus,
     GeminiRequestStatus? geminiRequestStatus,
-    GeminiResponseModelEntity? geminiResponseModelEntity,
-    List<GeminiResponseModelEntity>? geminiResponseModelEntityList,
+    TaskModelEntity? taskModelEntity,
+    List<TaskModelEntity>? taskModelEntityList,
     double? level,
     bool? isCanSpeechToText,
     bool? isLoading,
@@ -50,15 +50,13 @@ class HomeState extends Equatable {
     return HomeState(
       internetStatus: internetStatus ?? this.internetStatus,
       requestingString: requestingString ?? this.requestingString,
-      geminiResponseModelEntity:
-          geminiResponseModelEntity ?? this.geminiResponseModelEntity,
+      taskModelEntity: taskModelEntity ?? this.taskModelEntity,
       voiceStatus: voiceStatus ?? this.voiceStatus,
       geminiRequestStatus: geminiRequestStatus ?? this.geminiRequestStatus,
       isCanSpeechToText: isCanSpeechToText ?? this.isCanSpeechToText,
       level: level ?? this.level,
       isLoading: isLoading ?? this.isLoading,
-      geminiResponseModelEntityList:
-          geminiResponseModelEntityList ?? this.geminiResponseModelEntityList,
+      taskModelEntityList: taskModelEntityList ?? this.taskModelEntityList,
     );
   }
 
@@ -71,7 +69,7 @@ class HomeState extends Equatable {
     requestingString,
     isCanSpeechToText,
     level,
-    geminiResponseModelEntity,
-    geminiResponseModelEntityList,
+    taskModelEntity,
+    taskModelEntityList,
   ];
 }

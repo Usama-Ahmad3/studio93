@@ -2,13 +2,15 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import 'package:studio93/domain/gemini_response_model_entity.dart';
-import 'package:studio93/model/filtered_gemini_response_model.dart';
-import 'package:studio93/model/gemini_original_response.dart';
+import 'package:studio93/data/model/filtered_gemini_response_model.dart';
+import 'package:studio93/data/model/gemini_original_response.dart';
+import 'package:studio93/domain/task_model.dart';
 
 class GeminiApiService {
-  Future<Either<GeminiResponseModelEntity, GeminiResponseModelEntity>>
-  geminiApiService(Map data, String key) async {
+  Future<Either<TaskModelEntity, TaskModelEntity>> geminiApiService(
+    Map data,
+    String key,
+  ) async {
     try {
       GeminiOriginalResponse model = GeminiOriginalResponse();
       final response = await http.post(
@@ -27,10 +29,10 @@ class GeminiApiService {
         Map<String, dynamic> map = jsonDecode(text);
         return right(FilteredGeminiResponseModel.fromJson(map).toDomain());
       } else {
-        return left(const GeminiResponseModelEntity.empty());
+        return left(const TaskModelEntity.empty());
       }
     } catch (e) {
-      return left(const GeminiResponseModelEntity.empty());
+      return left(const TaskModelEntity.empty());
     }
   }
 }

@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gif/gif.dart';
+import 'package:studio93/core/utils/background_gradient.dart';
 import 'package:studio93/res/app_colors.dart';
-import 'package:studio93/utils/background_gradient.dart';
 import 'package:studio93/view/common_widgets/app_bar_widget.dart';
-import 'package:studio93/view/home_screen/widgets/task_list_widget.dart';
 import 'package:studio93/view/home_screen/bloc/home_bloc.dart';
+import 'package:studio93/view/home_screen/widgets/task_list_widget.dart';
 
+import 'add_new_task_view.dart';
 import 'bloc/home_event.dart';
 import 'bloc/home_state.dart';
 import 'widgets/listening_animation.dart';
 import 'widgets/mic_button.dart';
-import 'add_new_task_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen>
                     .push(
                       MaterialPageRoute(
                         builder: (context) => AddNewTaskView(
-                          response: state.geminiResponseModelEntity,
+                          taskModelEntity: state.taskModelEntity,
                         ),
                       ),
                     )
@@ -101,8 +101,7 @@ class _HomeScreenState extends State<HomeScreen>
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12.w),
                       child: TaskListWidget(
-                        geminiResponseModelEntity:
-                            state.geminiResponseModelEntityList,
+                        taskModelEntity: state.taskModelEntityList,
                       ),
                     ),
                   ),

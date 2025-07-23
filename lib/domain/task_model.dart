@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-class GeminiResponseModelEntity extends Equatable {
+class TaskModelEntity extends Equatable {
   final String? time;
   final String? date;
   final String title;
@@ -9,7 +9,7 @@ class GeminiResponseModelEntity extends Equatable {
   final DateTime? lastEdited;
   final String description;
   final String? id;
-  const GeminiResponseModelEntity({
+  const TaskModelEntity({
     this.time,
     this.title = '',
     this.date,
@@ -18,7 +18,7 @@ class GeminiResponseModelEntity extends Equatable {
     this.description = '',
     this.id,
   });
-  const GeminiResponseModelEntity.empty()
+  const TaskModelEntity.empty()
     : title =
           "Can't Get Any Thing From Given Speech!\nPlease Provide Clear Speech",
       date = '',
@@ -27,7 +27,7 @@ class GeminiResponseModelEntity extends Equatable {
       time = '',
       id = '',
       description = '';
-  GeminiResponseModelEntity copyWith({
+  TaskModelEntity copyWith({
     String? title,
     String? time,
     String? date,
@@ -36,7 +36,7 @@ class GeminiResponseModelEntity extends Equatable {
     String? id,
     DateTime? lastEdited,
   }) {
-    return GeminiResponseModelEntity(
+    return TaskModelEntity(
       description: description ?? this.description,
       title: title ?? this.title,
       time: time ?? this.time,
@@ -47,9 +47,9 @@ class GeminiResponseModelEntity extends Equatable {
     );
   }
 
-  factory GeminiResponseModelEntity.fromDocument(DocumentSnapshot map) {
+  factory TaskModelEntity.fromDocument(DocumentSnapshot map) {
     final data = map.data() as Map<String, dynamic>;
-    return GeminiResponseModelEntity(
+    return TaskModelEntity(
       id: map.id,
       title: data['title'] ?? '',
       description: data['description'] ?? '',
@@ -60,7 +60,7 @@ class GeminiResponseModelEntity extends Equatable {
       createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toFirestore() {
     return {
       "description": description,
       "title": title,

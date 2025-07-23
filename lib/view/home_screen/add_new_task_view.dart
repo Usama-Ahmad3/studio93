@@ -1,23 +1,24 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:studio93/domain/gemini_response_model_entity.dart';
+import 'package:studio93/core/utils/background_gradient.dart';
+import 'package:studio93/core/utils/flush_bar_utils.dart';
+import 'package:studio93/domain/task_model.dart';
 import 'package:studio93/res/app_colors.dart';
-import 'package:studio93/res/app_images.dart';
-import 'package:studio93/utils/background_gradient.dart';
-import 'package:studio93/utils/flush_bar_utils.dart';
 import 'package:studio93/view/common_widgets/app_bar_widget.dart';
 import 'package:studio93/view/common_widgets/app_text_field.dart';
 import 'package:studio93/view/common_widgets/default_button.dart';
 import 'package:studio93/view/home_screen/bloc/home_bloc.dart';
 import 'package:studio93/view/home_screen/bloc/home_event.dart';
-import 'package:svg_flutter/svg.dart';
 
 class AddNewTaskView extends StatefulWidget {
-  final GeminiResponseModelEntity response;
+  final TaskModelEntity taskModelEntity;
   final String? isHaveId;
-  const AddNewTaskView({super.key, required this.response, this.isHaveId});
+  const AddNewTaskView({
+    super.key,
+    required this.taskModelEntity,
+    this.isHaveId,
+  });
 
   @override
   State<AddNewTaskView> createState() => _AddNewTaskViewState();
@@ -30,8 +31,8 @@ class _AddNewTaskViewState extends State<AddNewTaskView> {
   String submitString = "Add Task";
   @override
   void initState() {
-    taskNameController.text = widget.response.title;
-    descriptionController.text = widget.response.description;
+    taskNameController.text = widget.taskModelEntity.title;
+    descriptionController.text = widget.taskModelEntity.description;
     if (widget.isHaveId != null) {
       submitString = "Update Task";
     }
@@ -109,7 +110,7 @@ class _AddNewTaskViewState extends State<AddNewTaskView> {
     if (widget.isHaveId != null) {
       context.read<HomeBloc>().add(
         UpdateTaskHomeEvent(
-          model: widget.response.copyWith(
+          model: widget.taskModelEntity.copyWith(
             description: descriptionController.text,
             title: taskNameController.text,
           ),
@@ -120,7 +121,7 @@ class _AddNewTaskViewState extends State<AddNewTaskView> {
     } else {
       context.read<HomeBloc>().add(
         AddTaskHomeEvent(
-          model: widget.response.copyWith(
+          model: widget.taskModelEntity.copyWith(
             description: descriptionController.text,
             title: taskNameController.text,
           ),

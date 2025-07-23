@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:studio93/domain/gemini_response_model_entity.dart';
+import 'package:studio93/domain/task_model.dart';
 
 abstract class HomeEvent extends Equatable {}
 
@@ -59,14 +59,14 @@ class GetDataHomeEvent extends HomeEvent {
 }
 
 class AddTaskHomeEvent extends HomeEvent {
-  final GeminiResponseModelEntity model;
+  final TaskModelEntity model;
   AddTaskHomeEvent({required this.model});
   @override
   List<Object?> get props => [model];
 }
 
 class UpdateTaskHomeEvent extends HomeEvent {
-  final GeminiResponseModelEntity model;
+  final TaskModelEntity model;
   final String id;
   UpdateTaskHomeEvent({required this.model, required this.id});
   @override

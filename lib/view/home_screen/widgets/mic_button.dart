@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gif/gif.dart';
+import 'package:studio93/core/utils/flush_bar_utils.dart';
+import 'package:studio93/core/utils/show_permission_dialog.dart';
 import 'package:studio93/res/app_images.dart';
-import 'package:studio93/utils/flush_bar_utils.dart';
-import 'package:studio93/view/common_widgets/show_permission_dialog.dart';
 
 import '../bloc/home_bloc.dart';
 import '../bloc/home_event.dart';

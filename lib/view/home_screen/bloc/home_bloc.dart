@@ -7,16 +7,21 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-import 'package:studio93/repository/firebase_repo.dart';
+import 'package:studio93/core/services/gemini_api_service.dart';
+import 'package:studio93/data/repository/auth_repo.dart';
+import 'package:studio93/domain/firebase_repo_interface.dart';
 import 'package:studio93/res/app_constants.dart';
-import 'package:studio93/services/gemini_api_service.dart';
 
 import 'home_event.dart';
 import 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final FirebaseRepo firebaseRepo;
-  HomeBloc({required this.firebaseRepo}) : super(const HomeState()) {
+  final FirebaseRepoInterface firebaseRepoInterface;
+  final AuthRepo authRepo;
+  late final String _userId;
+  HomeBloc({required this.firebaseRepoInterface, required this.authRepo})
+    : super(const HomeState()) {
+    _init();
     on<CheckPermissionHomeEvent>(_checkPermission);
     on<CheckInternetStreamHomeEvent>(_checkInternetStream);
     on<SpeechToTextInitializeHomeEvent>(_speechToTextInitialize);
@@ -35,14 +40,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<ResetStateHomeEvent>(_onReset);
   }
   final SpeechToText _speechToText = SpeechToText();
+  void _init() async {
+    _userId = await authRepo.getUserId();
+  }
 
   _onAddTask(AddTaskHomeEvent event, Emitter<HomeState> emit) async {
+    emit(state.copyWith(isLoading: true));
     try {
-      emit(state.copyWith(isLoading: true));
-      await firebaseRepo.addTask(
+      await firebaseRepoInterface.addTask(
         model: event.model
             .copyWith(lastEdited: DateTime.now(), createdAt: DateTime.now())
-            .toMap(),
+            .toFirestore(),
+        userId: _userId,
       );
       add(GetDataHomeEvent());
     } catch (e) {
@@ -53,9 +62,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   _onUpdateTask(UpdateTaskHomeEvent event, Emitter<HomeState> emit) async {
     try {
       emit(state.copyWith(isLoading: true));
-      await firebaseRepo.updateTask(
-        model: event.model.copyWith(lastEdited: DateTime.now()).toMap(),
+      await firebaseRepoInterface.updateTask(
+        model: event.model.copyWith(lastEdited: DateTime.now()).toFirestore(),
         id: event.id,
+        userId: _userId,
       );
       add(GetDataHomeEvent());
     } catch (e) {
@@ -66,7 +76,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   _onDeleteTask(DeleteTaskHomeEvent event, Emitter<HomeState> emit) async {
     try {
       emit(state.copyWith(isLoading: true));
-      await firebaseRepo.deleteTask(id: event.id);
+      await firebaseRepoInterface.deleteTask(id: event.id, userId: _userId);
       add(GetDataHomeEvent());
     } catch (e) {
       add(CheckInternetStreamHomeEvent());
@@ -88,10 +98,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   _onGetData(GetDataHomeEvent event, Emitter<HomeState> emit) async {
     try {
       emit(state.copyWith(isLoading: true));
-      final data = await firebaseRepo.getTasks();
-      emit(
-        state.copyWith(isLoading: false, geminiResponseModelEntityList: data),
-      );
+      final userId = await authRepo.getUserId();
+      final data = await firebaseRepoInterface.getTasks(userId);
+      emit(state.copyWith(isLoading: false, taskModelEntityList: data));
     } catch (e) {
       add(CheckInternetStreamHomeEvent());
     }
@@ -295,7 +304,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               (l) {
                 return emit(
                   state.copyWith(
-                    geminiResponseModelEntity: l,
+                    taskModelEntity: l,
                     requestingString: '',
                     voiceStatus: VoiceStatus.completed,
                   ),
@@ -304,7 +313,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               (r) {
                 return emit(
                   state.copyWith(
-                    geminiResponseModelEntity: r,
+                    taskModelEntity: r,
                     requestingString: '',
                     voiceStatus: VoiceStatus.completed,
                   ),

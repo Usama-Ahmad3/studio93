@@ -1,22 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:studio93/domain/gemini_response_model_entity.dart';
+import 'package:studio93/core/services/date_time_format_service.dart';
+import 'package:studio93/core/utils/bottom_sheet_boiler_plate.dart';
+import 'package:studio93/core/utils/delete_dailog.dart';
+import 'package:studio93/domain/task_model.dart';
 import 'package:studio93/res/app_colors.dart';
-import 'package:studio93/services/date_time_format_service.dart';
-import 'package:studio93/utils/bottom_sheet_boiler_plate.dart';
-import 'package:studio93/utils/delete_dailog.dart';
-import 'package:studio93/view/home_screen/bloc/home_bloc.dart';
-import 'package:studio93/view/home_screen/bloc/home_event.dart';
-import 'package:studio93/view/home_screen/widgets/empty_task_widget.dart';
 import 'package:studio93/view/home_screen/add_new_task_view.dart';
+import 'package:studio93/view/home_screen/widgets/empty_task_widget.dart';
 import 'package:studio93/view/home_screen/widgets/task_detail_sheet.dart';
 
 class TaskListWidget extends StatefulWidget {
-  final List<GeminiResponseModelEntity> geminiResponseModelEntity;
-  const TaskListWidget({super.key, required this.geminiResponseModelEntity});
+  final List<TaskModelEntity> taskModelEntity;
+  const TaskListWidget({super.key, required this.taskModelEntity});
 
   @override
   State<TaskListWidget> createState() => _TaskListWidgetState();
@@ -25,11 +21,11 @@ class TaskListWidget extends StatefulWidget {
 class _TaskListWidgetState extends State<TaskListWidget> {
   @override
   Widget build(BuildContext context) {
-    return widget.geminiResponseModelEntity.isNotEmpty
+    return widget.taskModelEntity.isNotEmpty
         ? ListView.builder(
-            itemCount: widget.geminiResponseModelEntity.length,
+            itemCount: widget.taskModelEntity.length,
             itemBuilder: (context, index) {
-              final item = widget.geminiResponseModelEntity[index];
+              final item = widget.taskModelEntity[index];
               return Slidable(
                 closeOnScroll: true,
                 useTextDirection: true,
@@ -110,7 +106,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
         : EmptyTaskWidget();
   }
 
-  _slideTileOptionAndAction(GeminiResponseModelEntity model) {
+  _slideTileOptionAndAction(TaskModelEntity model) {
     return [
       ...List.generate(2, (index) {
         return Builder(
@@ -122,8 +118,10 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                   if (index == 0) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) =>
-                            AddNewTaskView(response: model, isHaveId: model.id),
+                        builder: (context) => AddNewTaskView(
+                          taskModelEntity: model,
+                          isHaveId: model.id,
+                        ),
                       ),
                     );
                   } else {
@@ -196,7 +194,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
     ];
   }
 
-  _showTaskDetail(GeminiResponseModelEntity model) {
+  _showTaskDetail(TaskModelEntity model) {
     return showModalBottomSheet(
       context: context,
       elevation: 10,
@@ -215,10 +213,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
     );
   }
 
-  double getPaddingFromTop(
-    GeminiResponseModelEntity model,
-    BuildContext context,
-  ) {
+  double getPaddingFromTop(TaskModelEntity model, BuildContext context) {
     final screenHeight = MediaQuery.sizeOf(context).height;
 
     int contentSections = 0;

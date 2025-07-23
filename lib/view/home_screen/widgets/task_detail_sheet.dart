@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:studio93/domain/gemini_response_model_entity.dart';
+import 'package:studio93/core/services/date_time_format_service.dart';
+import 'package:studio93/core/utils/delete_dailog.dart';
+import 'package:studio93/domain/task_model.dart';
 import 'package:studio93/res/app_colors.dart';
-import 'package:studio93/services/date_time_format_service.dart';
-import 'package:studio93/utils/delete_dailog.dart';
 import 'package:studio93/view/common_widgets/default_button.dart';
 import 'package:studio93/view/home_screen/add_new_task_view.dart';
 
 class TaskDetailSheet extends StatelessWidget {
-  final GeminiResponseModelEntity modelEntity;
+  final TaskModelEntity modelEntity;
   const TaskDetailSheet({super.key, required this.modelEntity});
 
   @override
@@ -172,7 +172,7 @@ class TaskDetailSheet extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => AddNewTaskView(
-                  response: modelEntity,
+                  taskModelEntity: modelEntity,
                   isHaveId: modelEntity.id,
                 ),
               ),
