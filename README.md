@@ -62,6 +62,7 @@ Project is built in Flutter using Firebase Firestore and Gemini API
 Clone the Repository:
 
 git clone https://github.com/Usama-Ahmad3/studio93
+
 cd studio93
 Install Dependencies:
 
