@@ -61,34 +61,18 @@ Project is built in Flutter using Firebase Firestore and Gemini API
 
 Clone the Repository:
 
-bash
-Copy
-Edit
-git clone https://github.com/your-username/studio93-task-app.git
-cd studio93-task-app
+git clone https://github.com/Usama-Ahmad3/studio93
+cd studio93
 Install Dependencies:
 
-bash
-Copy
-Edit
 flutter pub get
-Firebase Setup:
-
-Add your google-services.json (Android) and GoogleService-Info.plist (iOS).
-
-Make sure Firebase Firestore is enabled in the Firebase console.
 
 Run App:
 
-bash
-Copy
-Edit
 flutter run
 
 🧠 Gemini Prompt Summary
-text
-Copy
-Edit
+
 Extract event information from voice:
 - Parse for date, time, title, description.
 - Use today’s date if not found.
@@ -97,9 +81,7 @@ Extract event information from voice:
   Fallback: If unclear input, Gemini responds with default "Error" task.
 
 🖼 Screenshots
-Mic Listening	Gemini Structuring	Task Detail
 
-Add your real screenshots in the screenshots/ folder and replace the image names above.
 
 💡 Tech Stack
 🧠 Gemini (Generative AI)
