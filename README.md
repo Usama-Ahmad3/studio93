@@ -83,6 +83,12 @@ Extract event information from voice:
 
 🖼 Screenshots
 
+![studio93](screenshots/Screenshot_1.jpg)
+![studio93](screenshots/Screenshot_2.jpg)
+![studio93](screenshots/Screenshot_3.jpg)
+![studio93](screenshots/Screenshot_4.jpg)
+![studio93](screenshots/Screenshot_5.jpg)
+![studio93](screenshots/Screenshot_6.jpg)
 
 💡 Tech Stack
 🧠 Gemini (Generative AI)

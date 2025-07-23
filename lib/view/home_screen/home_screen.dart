@@ -86,27 +86,27 @@ class _HomeScreenState extends State<HomeScreen>
               bool isListening =
                   state.voiceStatus == VoiceStatus.listening ||
                   state.voiceStatus == VoiceStatus.connecting;
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
-                child: Stack(
-                  children: [
-                    ListeningAnimation(
-                      result: state.requestingString,
-                      isListening: isListening,
-                      status: state.voiceStatus == VoiceStatus.connecting
-                          ? "connecting"
-                          : "listening",
-                    ),
-                    AnimatedOpacity(
-                      duration: const Duration(milliseconds: 500),
-                      opacity: isListening ? 0.1 : 1.0,
+              return Stack(
+                children: [
+                  ListeningAnimation(
+                    result: state.requestingString,
+                    isListening: isListening,
+                    status: state.voiceStatus == VoiceStatus.connecting
+                        ? "connecting"
+                        : "listening",
+                  ),
+                  AnimatedOpacity(
+                    duration: const Duration(milliseconds: 500),
+                    opacity: isListening ? 0.1 : 1.0,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12.w),
                       child: TaskListWidget(
                         geminiResponseModelEntity:
                             state.geminiResponseModelEntityList,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             },
           ),
