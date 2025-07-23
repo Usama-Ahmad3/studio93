@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:studio93/core/utils/background_gradient.dart';
-import 'package:studio93/core/utils/flush_bar_utils.dart';
 import 'package:studio93/domain/task_model.dart';
 import 'package:studio93/res/app_colors.dart';
+import 'package:studio93/core/utils/background_gradient.dart';
+import 'package:studio93/core/utils/flush_bar_utils.dart';
 import 'package:studio93/view/common_widgets/app_bar_widget.dart';
 import 'package:studio93/view/common_widgets/app_text_field.dart';
 import 'package:studio93/view/common_widgets/default_button.dart';

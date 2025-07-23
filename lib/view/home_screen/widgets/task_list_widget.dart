@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:studio93/domain/task_model.dart';
+import 'package:studio93/res/app_colors.dart';
 import 'package:studio93/core/services/date_time_format_service.dart';
 import 'package:studio93/core/utils/bottom_sheet_boiler_plate.dart';
 import 'package:studio93/core/utils/delete_dailog.dart';
-import 'package:studio93/domain/task_model.dart';
-import 'package:studio93/res/app_colors.dart';
-import 'package:studio93/view/home_screen/add_new_task_view.dart';
 import 'package:studio93/view/home_screen/widgets/empty_task_widget.dart';
+import 'package:studio93/view/home_screen/add_new_task_view.dart';
 import 'package:studio93/view/home_screen/widgets/task_detail_sheet.dart';
 
 class TaskListWidget extends StatefulWidget {

@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gif/gif.dart';
-import 'package:studio93/core/utils/background_gradient.dart';
 import 'package:studio93/res/app_colors.dart';
+import 'package:studio93/core/utils/background_gradient.dart';
 import 'package:studio93/view/common_widgets/app_bar_widget.dart';
-import 'package:studio93/view/home_screen/bloc/home_bloc.dart';
 import 'package:studio93/view/home_screen/widgets/task_list_widget.dart';
+import 'package:studio93/view/home_screen/bloc/home_bloc.dart';
 
-import 'add_new_task_view.dart';
 import 'bloc/home_event.dart';
 import 'bloc/home_state.dart';
 import 'widgets/listening_animation.dart';
 import 'widgets/mic_button.dart';
+import 'add_new_task_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +24,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with WidgetsBindingObserver, TickerProviderStateMixin {
   late final GifController _controller;
+  bool _navigated = false;
 
   @override
   void dispose() {
@@ -51,7 +52,8 @@ class _HomeScreenState extends State<HomeScreen>
         body: SafeArea(
           child: BlocConsumer<HomeBloc, HomeState>(
             listener: (context, state) {
-              if (state.voiceStatus == VoiceStatus.completed) {
+              if (state.voiceStatus == VoiceStatus.completed && !_navigated) {
+                _navigated = true;
                 Navigator.of(context)
                     .push(
                       MaterialPageRoute(
@@ -61,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                     )
                     .then((value) {
+                      _navigated = false;
                       if (context.mounted) {
                         context.read<HomeBloc>().add(ResetStateHomeEvent());
                       }
