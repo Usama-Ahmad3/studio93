@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "482745562443",
+    "project_id": "print-254f5",
+    "storage_bucket": "print-254f5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482745562443:android:17a1da7fb672ff530e64ce",
+        "android_client_info": {
+          "package_name": "com.example.call_checker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJjiy1szJYJh2CtQBZ8qEGPeoVfSulMfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482745562443:android:b3d31a0f19bb85980e64ce",
+        "android_client_info": {
+          "package_name": "com.example.studio93"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJjiy1szJYJh2CtQBZ8qEGPeoVfSulMfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482745562443:android:bb5ad95ed1a98bb90e64ce",
+        "android_client_info": {
+          "package_name": "com.keybotix.printer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJjiy1szJYJh2CtQBZ8qEGPeoVfSulMfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
